@@ -30,7 +30,7 @@ parser.add_argument('--game', type=str, default='Breakout')
 parser.add_argument('--batch_size', type=int, default=128)
 # 
 parser.add_argument('--trajectories_per_buffer', type=int, default=1, help='Number of trajectories to sample from each of the buffers.')
-parser.add_argument('--data_dir_prefix', type=str, default='/home/lili/lili/dqn_replay/')
+parser.add_argument('--data_dir_prefix', type=str, default='/data1/infantes/dqn_replay/')
 args = parser.parse_args()
 
 set_seed(args.seed)
@@ -83,7 +83,7 @@ model = GPT(mconf)
 # initialize a trainer instance and kick off training
 epochs = args.epochs
 tconf = TrainerConfig(max_epochs=epochs, batch_size=args.batch_size, learning_rate=6e-4,
-                      lr_decay=True, warmup_tokens=512*20, final_tokens=2*len(train_dataset)*args.block_size,
+                      lr_decay=True, warmup_tokens=512*20, final_tokens=2*len(train_dataset)*train_dataset.block_size,
                       num_workers=4, seed=args.seed, model_type=args.model_type, game=args.game, max_timestep=max(timesteps))
 trainer = Trainer(model, train_dataset, None, tconf)
 
